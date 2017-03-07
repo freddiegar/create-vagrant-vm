@@ -1,0 +1,28 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  # Hostname VM
+  config.vm.hostname = "##NAME_VM##"
+  # Box Vagrant at https://atlas.hashicorp.com/search.
+  config.vm.box = "##BASE_VAGRANT##"
+  # Network
+  config.vm.network "private_network", ip: "##IP_ADDRESS_VM##"
+  # For Apache => ##IP_ADDRESS_VM##:80
+  # For Zend   => ##IP_ADDRESS_VM##:10081
+  # config.vm.network "forwarded_port", guest: 80, host: 8000, auto_correct: true 
+  # localhost:8000 => ##IP_ADDRESS_VM##:80
+  # Shared Folders
+  config.vm.synced_folder "~/Public/", "/public", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
+  config.vm.synced_folder "/var/www/ssl", "/var/www/ssl", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
+  config.vm.synced_folder "/usr/cnf/", "/usr/cnf/", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
+  # Config VM
+  config.vm.provider "virtualbox" do |vb|
+    # vb.gui = true
+    vb.name = "##NAME_VM##"
+    vb.memory = "1024"
+  end
+
+  # Provisioning file
+  config.vm.provision :shell, path: "##BOOTSTRAP_VAGRANT_VM##"
+end
