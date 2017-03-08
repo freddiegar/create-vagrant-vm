@@ -1,9 +1,10 @@
 #!/bin/sh
+CURRENT_DIR=`pwd`
 
 # Configuration vars
 NAME_VM=$1
 REPOSITORY_URL_VM=""
-FOLDER_VAGRANT="$HOME/vagrant"
+FOLDER_VAGRANT="$HOME/Vagrant VMs"
 BASE_FILE_VAGRANT="VagrantfileBase"
 
 # Defaults configuration
@@ -132,12 +133,12 @@ echo "Creating path: $PATH_VM"
 mkdir -p "$PATH_VM"
 echo
 
-echo "Copying configuration file: $FOLDER_VAGRANT/$BASE_FILE_VAGRANT to $FILE_VAGRANT_VM"
-cp "$FOLDER_VAGRANT/$BASE_FILE_VAGRANT" "$FILE_VAGRANT_VM"
+echo "Copying configuration file: $CURRENT_DIR/$BASE_FILE_VAGRANT to $FILE_VAGRANT_VM"
+cp "$CURRENT_DIR/$BASE_FILE_VAGRANT" "$FILE_VAGRANT_VM"
 
 if [ "$BOOTSTRAP_FILE_VAGRANT" != "None" ]; then
-    echo "Copying configuration file: $FOLDER_VAGRANT/$BOOTSTRAP_FILE_VAGRANT to $BOOTSTRAP_VAGRANT_VM"
-    cp "$FOLDER_VAGRANT/$BOOTSTRAP_FILE_VAGRANT" "$BOOTSTRAP_VAGRANT_VM"
+    echo "Copying configuration file: $CURRENT_DIR/$BOOTSTRAP_FILE_VAGRANT to $BOOTSTRAP_VAGRANT_VM"
+    cp "$CURRENT_DIR/$BOOTSTRAP_FILE_VAGRANT" "$BOOTSTRAP_VAGRANT_VM"
     echo
 fi
 
