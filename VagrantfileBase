@@ -4,6 +4,7 @@
 Vagrant.configure("2") do |config|
   # Hostname VM
   config.vm.hostname = "##NAME_VM##"
+  # Every Vagrant development environment requires a box. You can search for
   # Box Vagrant at https://atlas.hashicorp.com/search.
   config.vm.box = "##BASE_VAGRANT##"
   # Network
@@ -22,7 +23,6 @@ Vagrant.configure("2") do |config|
     vb.name = "##NAME_VM##"
     vb.memory = "1024"
   end
-
   # Provisioning file
   config.vm.provision :shell, path: "##BOOTSTRAP_VAGRANT_VM##"
 end
