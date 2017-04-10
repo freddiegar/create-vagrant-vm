@@ -15,8 +15,7 @@ Vagrant.configure("2") do |config|
   # localhost:8000 => ##IP_ADDRESS_VM##:80
   # Shared Folders
   config.vm.synced_folder "~/Public/", "/public", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
-  config.vm.synced_folder "/var/www/ssl", "/var/www/ssl", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
-  config.vm.synced_folder "/usr/cnf/", "/usr/cnf/", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
+  # config.vm.synced_folder "/var/www", "/var/www", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
   # Config VM
   config.vm.provider "virtualbox" do |vb|
     # vb.gui = true

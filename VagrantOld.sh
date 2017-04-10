@@ -32,6 +32,8 @@ aptitude -y install php5.6-gd
 aptitude -y install php5.6-zip
 aptitude -y install php5.6-curl
 aptitude -y install php5.6-mysql
+aptitude -y install php5.6-mcrypt
+aptitude -y install php5.6-intl
 echo
 
 echo "Create site in Apache: /etc/apache2/sites-available/popeye.conf"

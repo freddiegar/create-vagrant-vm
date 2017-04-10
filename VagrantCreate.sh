@@ -40,7 +40,7 @@ fi
 echo "Please select virtual machine configuration that you want to create:"
 echo "1 : ZendServer 9.0 (Apache 2.4 and PHP 7.0) alias [Bender]"
 echo "2 : Apache 2.4 and PHP 7.0 alias [Homero]"
-echo "3 : Apache 2.3 and PHP 5.6 alias [Popeye]"
+echo "3 : Apache 2.2 and PHP 5.6 alias [Popeye]"
 echo "4 : Apache 2.4 and PHP 7.0 alias [All-in-one]"
 echo "5 : None"
 echo
