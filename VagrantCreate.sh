@@ -3,17 +3,15 @@ CURRENT_DIR=`pwd`
 
 # Configuration vars
 NAME_VM=$1
+IP_ADDRESS_VM=$2
 REPOSITORY_URL_VM=""
 FOLDER_VAGRANT="$HOME/Vagrant VMs"
 BASE_FILE_VAGRANT="VagrantfileBase"
+IP_ADDRESS_DEFAULT="192.168.33.99"
 
 # Defaults configuration
 if [ "$NAME_VM" = "" ]; then
     NAME_VM="vm"
-fi
-
-if [ "$IP_ADDRESS_VM" = "" ]; then
-    IP_ADDRESS_VM="192.168.0.99"
 fi
 
 echo "Hi, $USER!"
@@ -41,8 +39,9 @@ echo "Please select virtual machine configuration that you want to create:"
 echo "1 : ZendServer 9.0 (Apache 2.4 and PHP 7.0) alias [Bender]"
 echo "2 : Apache 2.4 and PHP 7.0 alias [Homero]"
 echo "3 : Apache 2.2 and PHP 5.6 alias [Popeye]"
-echo "4 : Apache 2.4 and PHP 7.0 alias [All-in-one]"
-echo "5 : None"
+echo "4 : Apache 2.2 and PHP 5.5 alias [Wakko]"
+echo "5 : Apache 2.4 and PHP 7.0 alias [All-in-one]"
+echo "6 : None"
 echo
 echo -n "Select one option: [Default: Cancel] [Enter] => "
 
@@ -55,6 +54,8 @@ elif [ "$RESPONSE" = "2" ]; then
 elif [ "$RESPONSE" = "3" ]; then
     BOOTSTRAP_FILE_VAGRANT="VagrantOld.sh"
 elif [ "$RESPONSE" = "4" ]; then
+    BOOTSTRAP_FILE_VAGRANT="VagrantDeprecated.sh"
+elif [ "$RESPONSE" = "5" ]; then
     BOOTSTRAP_FILE_VAGRANT="VagrantUnique.sh"
 
     echo
@@ -91,14 +92,23 @@ else
 fi
 
 echo
-echo -n "Select valid IP Address for virtual machine => "
+echo "This are IP used is this moment"
+cat /etc/hosts
 
-read RESPONSE
+if [ "$IP_ADDRESS_VM" = "" ]; then
+    echo
+    echo -n "Select valid IP Address for virtual machine => "
 
-if [ "$RESPONSE" = "" ]; then
-    IP_ADDRESS_VM="192.168.0.99"
+    read RESPONSE
+
+    if [ "$RESPONSE" = "" ]; then
+        IP_ADDRESS_VM=$IP_ADDRESS_DEFAULT
+    else
+        IP_ADDRESS_VM=$RESPONSE
+    fi
 else
-    IP_ADDRESS_VM=$RESPONSE
+    echo
+    echo "You want use: $IP_ADDRESS_VM. IMPORTANT: Please verify that it is not is used until now!"
 fi
 
 echo
@@ -182,7 +192,7 @@ if [ "$RESPONSE" = "Yes" -o "$RESPONSE" = "yes" -o "$RESPONSE" = "y" ]; then
     echo "Ready!, goooo!"
     vagrant ssh
 else
-    echo "Vagrant up no execute."
+    echo "Vagrant up no execute. Virtual Machine was create in: [$PATH_VM]"
 fi
 
 echo "Process completed!"

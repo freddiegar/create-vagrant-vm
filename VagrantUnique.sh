@@ -140,16 +140,10 @@ echo '<IfModule mod_ssl.c>
                 SSLSessionCacheTimeout 1
 
                 <Location ~ "/?(.*)/secure">
+                    LogLevel info ssl:debug
                     SSLOptions +StdEnvVars
-                    SSLVerifyClient require
-                    SSLVerifyDepth 3
-                    #SSLRequireSSL
-
-                    RewriteEngine On
-                    #RewriteCond %{SSL:SSL_CLIENT_VERIFY} !^SUCCESS$
-                    #RewriteRule     .? - [F]
-                    ErrorDocument 403 "You need a client side certificate issued by CAcert to access this site"
-                    ErrorDocument 500 "You need a client side certificate issued by CAcert to access this site"
+                    SSLVerifyClient optional
+                    SSLVerifyDepth 2
                 </Location>
 
         </VirtualHost>

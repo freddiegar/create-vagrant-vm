@@ -4,7 +4,7 @@ echo "Access with root!"
 sudo su
 echo
 
-echo "Repository PHP 5.6"
+echo "Repository PHP 5.5"
 add-apt-repository -y ppa:ondrej/php
 echo
 
@@ -22,23 +22,19 @@ a2enmod ssl
 a2enmod rewrite
 echo 
 
-echo "Install PHP 5.6"
-aptitude -y install php5.6
-aptitude -y install php5.6-soap
-aptitude -y install php5.6-dom
-aptitude -y install php5.6-mbstring
-aptitude -y install php5.6-xml
-aptitude -y install php5.6-gd
-aptitude -y install php5.6-zip
-aptitude -y install php5.6-curl
-aptitude -y install php5.6-mysql
-aptitude -y install php5.6-mcrypt
-aptitude -y install php5.6-intl
+echo "Install PHP 5.5"
+aptitude -y install php5
+aptitude -y install php5-gd
+aptitude -y install php5-curl
+aptitude -y install php5-mysql
+aptitude -y install php5-mcrypt
+php5enmod mcrypt
+aptitude -y install php5-intl
 echo
 
 echo "Create site in Apache: /etc/apache2/sites-available/##NAME_VM##.conf"
 echo '<VirtualHost *:80>
-    ServerName ##NAME_VM##.example.com
+    ServerName ##NAME_VM##.freddie.dev
     ServerAdmin fredy.mendivelso@placetopay.com
     DocumentRoot /var/www
 

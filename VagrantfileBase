@@ -14,8 +14,14 @@ Vagrant.configure("2") do |config|
   # config.vm.network "forwarded_port", guest: 80, host: 8000, auto_correct: true 
   # localhost:8000 => ##IP_ADDRESS_VM##:80
   # Shared Folders
-  config.vm.synced_folder "~/Public/", "/public", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
-  # config.vm.synced_folder "/var/www", "/var/www", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=664"]
+  config.vm.synced_folder "~/Public", "/public", owner: "vagrant", group: "www-data", mount_options: ["dmode=775,fmode=664"]
+  # config.vm.synced_folder "/var/www", "/var/www", owner: "vagrant", group: "www-data", mount_options: ["dmode=775,fmode=664"]
+  # RSync Folders
+  # config.vm.synced_folder "/var/www", "/var/www", type: "rsync"
+  # , rsync__exclude: ".git/"
+  # , rsync__args: ["--verbose", "--rsync-path='sudo rsync'", "--archive", "--delete", "-z"]
+  # Enable sincrinization automatic, in console exec
+  # vagrant rsync-auto --poll
   # Config VM
   config.vm.provider "virtualbox" do |vb|
     # vb.gui = true

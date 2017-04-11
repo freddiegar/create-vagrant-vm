@@ -33,9 +33,9 @@ aptitude -y install php7.0-curl
 aptitude -y install php7.0-mysql
 echo
 
-echo "Create site in Apache: /etc/apache2/sites-available/homero.conf"
+echo "Create site in Apache: /etc/apache2/sites-available/##NAME_VM##.conf"
 echo '<VirtualHost *:80>
-    ServerName homero.freddie.dev
+    ServerName ##NAME_VM##.freddie.dev
     ServerAdmin fredy.mendivelso@placetopay.com
     DocumentRoot /var/www
 
@@ -56,13 +56,13 @@ echo '<VirtualHost *:80>
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet' > /etc/apache2/sites-available/homero.conf
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet' > /etc/apache2/sites-available/##NAME_VM##.conf
 echo
 
-echo "Create site SSL in Apache: /etc/apache2/sites-available/homero-ssl.conf"
+echo "Create site SSL in Apache: /etc/apache2/sites-available/##NAME_VM##-ssl.conf"
 echo '<IfModule mod_ssl.c>
         <VirtualHost _default_:443>
-                ServerName homero.freddie.dev
+                ServerName ##NAME_VM##.freddie.dev
                 ServerAdmin fredy.mendivelso@placetopay.com
                 DocumentRoot /var/www
 
@@ -102,30 +102,24 @@ echo '<IfModule mod_ssl.c>
                 SSLSessionCacheTimeout 1
 
                 <Location ~ "/?(.*)/secure">
+                    LogLevel info ssl:debug
                     SSLOptions +StdEnvVars
-                    SSLVerifyClient require
-                    SSLVerifyDepth 3
-                    #SSLRequireSSL
-
-                    RewriteEngine On
-                    #RewriteCond %{SSL:SSL_CLIENT_VERIFY} !^SUCCESS$
-                    #RewriteRule     .? - [F]
-                    ErrorDocument 403 "You need a client side certificate issued by CAcert to access this site"
-                    ErrorDocument 500 "You need a client side certificate issued by CAcert to access this site"
+                    SSLVerifyClient optional
+                    SSLVerifyDepth 2
                 </Location>
 
         </VirtualHost>
-</IfModule>' > /etc/apache2/sites-available/homero-ssl.conf
+</IfModule>' > /etc/apache2/sites-available/##NAME_VM##-ssl.conf
 echo
 
 echo "Changes permission"
-chmod 770 /etc/apache2/sites-available/homero.conf
-chmod 770 /etc/apache2/sites-available/homero-ssl.conf
+chmod 770 /etc/apache2/sites-available/##NAME_VM##.conf
+chmod 770 /etc/apache2/sites-available/##NAME_VM##-ssl.conf
 echo
 
 echo "Changes owners"
-chown vagrant:www-data /etc/apache2/sites-available/homero.conf
-chown vagrant:www-data /etc/apache2/sites-available/homero-ssl.conf
+chown vagrant:www-data /etc/apache2/sites-available/##NAME_VM##.conf
+chown vagrant:www-data /etc/apache2/sites-available/##NAME_VM##-ssl.conf
 echo
 
 echo "Disable default sites"
@@ -134,8 +128,8 @@ a2dissite default-ssl.conf
 echo
 
 echo "Enable to site"
-a2ensite homero.conf
-a2ensite homero-ssl.conf
+a2ensite ##NAME_VM##.conf
+a2ensite ##NAME_VM##-ssl.conf
 service apache2 reload
 echo
 

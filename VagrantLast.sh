@@ -19,12 +19,12 @@ echo "Install Zend server PHP 7.0"
 aptitude -y install zend-server-php-7.0
 echo
 
-echo "Create site in Apache: /etc/apache2/sites-available/bender.conf"
+echo "Create site in Apache: /etc/apache2/sites-available/##NAME_VM##.conf"
 echo '<VirtualHost *:80>
 #ZEND-{B35D9A8E6C515B9E2CDD2FD9736070BF}
 Include "/usr/local/zend/etc/sites.d/zend-default-vhost-80.conf"
 #ZEND-{B35D9A8E6C515B9E2CDD2FD9736070BF}
-    ServerName bender.freddie.dev
+    ServerName ##NAME_VM##.freddie.dev
     ServerAdmin fredy.mendivelso@placetopay.com
     DocumentRoot /var/www
 
@@ -50,13 +50,13 @@ Include "/usr/local/zend/etc/sites.d/zend-default-vhost-80.conf"
 #ZEND-{DD87CFA438FDB62F189CF9485CCB5F20}
 IncludeOptional "/usr/local/zend/etc/sites.d/globals-*.conf"
 IncludeOptional "/usr/local/zend/etc/sites.d/vhost_*.conf"
-#ZEND-{DD87CFA438FDB62F189CF9485CCB5F20}' > /etc/apache2/sites-available/bender.conf
+#ZEND-{DD87CFA438FDB62F189CF9485CCB5F20}' > /etc/apache2/sites-available/##NAME_VM##.conf
 echo
 
-echo "Create site SSL in Apache: /etc/apache2/sites-available/bender-ssl.conf"
+echo "Create site SSL in Apache: /etc/apache2/sites-available/##NAME_VM##-ssl.conf"
 echo '<IfModule mod_ssl.c>
         <VirtualHost _default_:443>
-                ServerName bender.freddie.dev
+                ServerName ##NAME_VM##.freddie.dev
                 ServerAdmin fredy.mendivelso@placetopay.com
                 DocumentRoot /var/www
 
@@ -96,29 +96,24 @@ echo '<IfModule mod_ssl.c>
                 SSLSessionCacheTimeout 1
 
                 <Location ~ "/?(.*)/secure">
+                    LogLevel info ssl:debug
                     SSLOptions +StdEnvVars
-                    SSLVerifyClient require
-                    SSLVerifyDepth 3
-                    #SSLRequireSSL
-
-                    RewriteEngine On
-                    #RewriteCond %{SSL:SSL_CLIENT_VERIFY} !^SUCCESS$
-                    #RewriteRule     .? - [F]
-                    ErrorDocument 403 "You need a client side certificate issued by CAcert to access this site"
-                    ErrorDocument 500 "You need a client side certificate issued by CAcert to access this site"
+                    SSLVerifyClient optional
+                    SSLVerifyDepth 2
                 </Location>
 
         </VirtualHost>
-</IfModule>' > /etc/apache2/sites-available/bender-ssl.conf
+</IfModule>' > /etc/apache2/sites-available/##NAME_VM##-ssl.conf
+echo
 
 echo "Changes permission"
-chmod 770 /etc/apache2/sites-available/bender.conf
-chmod 770 /etc/apache2/sites-available/bender-ssl.conf
+chmod 770 /etc/apache2/sites-available/##NAME_VM##.conf
+chmod 770 /etc/apache2/sites-available/##NAME_VM##-ssl.conf
 echo
 
 echo "Changes owners"
-chown vagrant:www-data /etc/apache2/sites-available/bender.conf
-chown vagrant:www-data /etc/apache2/sites-available/bender-ssl.conf
+chown vagrant:www-data /etc/apache2/sites-available/##NAME_VM##.conf
+chown vagrant:www-data /etc/apache2/sites-available/##NAME_VM##-ssl.conf
 echo
 
 echo "Disable default sites"
@@ -127,8 +122,8 @@ a2dissite default-ssl.conf
 echo
 
 echo "Enable to site"
-a2ensite bender.conf
-a2ensite bender-ssl.conf
+a2ensite ##NAME_VM##.conf
+a2ensite ##NAME_VM##-ssl.conf
 service apache2 reload
 echo
 
