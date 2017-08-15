@@ -84,7 +84,7 @@ elif [ "$RESPONSE" = "5" ]; then
 
     REPOSITORY_URL_TEMP=$REPOSITORY_URL_VM
     REPOSITORY_URL_VM=$(echo $REPOSITORY_URL_VM | sed "s|@|:$REPOSITORY_PASSWORD_VM@|g")
-elif [ "$RESPONSE" = "5" ]; then
+elif [ "$RESPONSE" = "6" ]; then
     BOOTSTRAP_FILE_VAGRANT="None"
 else
   echo "This option $RESPONSE not exist, try again."
