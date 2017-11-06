@@ -10,13 +10,20 @@ BASE_FILE_VAGRANT="VagrantfileBase"
 IP_ADDRESS_DEFAULT="192.168.33.99"
 
 # Defaults configuration
-if [ "$NAME_VM" = "" ]; then
-    NAME_VM="vm"
-fi
-
 echo "Hi, $USER!"
 echo
 
+if [ "$NAME_VM" = "" ]; then
+    echo -n "Please define name to VM to create: [Default: vm] [Enter] => "
+
+    read RESPONSE;
+
+    if [ "$RESPONSE" = "" ]; then
+        NAME_VM="vm"
+    else
+        NAME_VM=$RESPONSE
+    fi
+fi
 
 echo "Please select vagrant box to create:"
 echo "1 : Ubuntu 14 Server [ubuntu/trusty64]"
